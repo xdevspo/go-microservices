@@ -1,0 +1,60 @@
+name: go_microservices
+
+services:
+  backend:
+    container_name: go_${TARGET}_backend
+    build:
+      context: ../src # Контекст сборки, где находятся исходники (go.mod, go.sum)
+      dockerfile: ../docker/backend/Dockerfile # Указываем, где находится Dockerfile
+      target: ${TARGET:-dev}
+#      args:
+#        RUID: ${UID:-1000}
+#        APP_ENV: dev
+#        BUILD_FLAVOR: full
+    volumes:
+      - ../src:/app:rw,delegated
+#      - type: bind
+#        source: ../src
+#        target: /app
+#      - type: tmpfs
+#        target: /tmp
+#        tmpfs:
+#          size: 256000000  # Пример: 256 MB в байтах
+    environment:
+      - APP_ENV=${TARGET}
+      - APP_PORT=${APP_PORT}
+#      DB_HOST: db
+#      DB_PORT: 5432
+#      DB_USER: ${POSTGRES_USER}
+#      DB_PASSWORD: ${POSTGRES_PASSWORD}
+#      DB_NAME: ${POSTGRES_DB}
+#      APP_PORT: 8080
+    ports:
+      - "${APP_PORT}:${APP_PORT}" # Порт для доступа к приложению
+#    command: ["go", "run", "./cmd/main.go"]
+#    command: ["./build/main"]
+    networks:
+      - go_test_network
+#    depends_on:
+#      - db
+
+#  db:
+#    container_name: go_db
+#    image: postgres:15
+#    environment:
+#      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+#      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+#      POSTGRES_DB: ${POSTGRES_DB:-my_database}
+#    volumes:
+#      - db_data:/var/lib/postgresql/data
+#    networks:
+#      - mynetwork
+#    ports:
+#      - "5432:5432"
+
+volumes:
+  db_data:
+
+networks:
+  go_test_network:
+    driver: bridge
