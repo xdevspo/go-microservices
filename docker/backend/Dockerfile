@@ -4,6 +4,22 @@ FROM golang:1.23-bullseye AS dev
 # Устанавливаем рабочую директорию
 WORKDIR /app
 
+# Устанавливаем необходимые системные зависимости
+RUN apt-get update && apt-get install -y \
+    protobuf-compiler \
+    unzip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Устанавливаем protoc-gen-go и protoc-gen-go-grpc
+RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@latest \
+    && go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+
+# Экспортируем PATH для доступа к go-бинарникам
+ENV PATH=$PATH:/go/bin
+
+# Проверяем наличие protoc и плагинов
+RUN protoc --version && protoc-gen-go --version && protoc-gen-go-grpc --version
+
 # Копируем go.mod в контейнер
 COPY go.mod ./
 
