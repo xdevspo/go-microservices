@@ -4,7 +4,7 @@
 // - protoc             v3.12.4
 // source: note.proto
 
-package go_microservices
+package note_v1
 
 import (
 	context "context"

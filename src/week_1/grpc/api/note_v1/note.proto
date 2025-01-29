@@ -7,7 +7,7 @@ import "google/protobuf/wrappers.proto";
 import "google/protobuf/timestamp.proto";
 
 
-option go_package = "github.com/xdevspo/go-microservices";
+option go_package = "github.com/xdevspo/go-microservices/week_1/grpc/pkg/note_v1;note_v1";
 
 service NoteV1 {
   rpc Create(CreateRequest) returns (CreateResponse);
