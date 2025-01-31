@@ -1,6 +1,6 @@
 FROM golang:1.23.4-alpine AS builder
 
-COPY . github.com/xdevspo/go-microservices/week_2/grpc/source/
+COPY .. github.com/xdevspo/go-microservices/week_2/grpc/source/
 
 # Устанавливаем рабочую директорию
 WORKDIR /github.com/xdevspo/go-microservices/week_2/grpc/source/
@@ -10,7 +10,7 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 # Копируем весь исходный код
-COPY . .
+COPY .. .
 
 # Собираем бинарник
 RUN go build -o ./bin/crud_server cmd/grpc_server/main.go
