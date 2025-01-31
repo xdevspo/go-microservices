@@ -39,7 +39,7 @@ message UpdateNoteInfo {
 }
 
 message CreateRequest {
-  NoteInfo infp = 1;
+  NoteInfo info = 1;
 }
 
 message CreateResponse {
