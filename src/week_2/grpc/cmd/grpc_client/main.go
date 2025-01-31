@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/fatih/color"
-	"github.com/xdevspo/go-microservices/week_2/grpc/grpc/pkg/note_v1"
+	"github.com/xdevspo/go-microservices/week_2/grpc/pkg/note_v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"log"
